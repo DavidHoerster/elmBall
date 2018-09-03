@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace agileBall_svr.Controllers
 {
@@ -27,7 +28,7 @@ namespace agileBall_svr.Controllers
         private IEnumerable<Player> FindPlayers(string query)
         {
             IEnumerable<Player> players = null;
-            using (var conn = new MySqlConnection("Server=baseball-data.mysql.database.azure.com; Port=3306; Database=lahman2016; Uid=dhoerster@baseball-data; Pwd=P@ssw0rd;"))
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["baseballData"].ConnectionString))
             {
                 conn.Open();
                 const string sql = @"SELECT CONCAT_WS(' ',m.nameFirst, m.nameLast) as name, m.playerID FROM lahman2016.master m WHERE m.nameFirst LIKE @name OR m.nameLast LIKE @name ORDER BY m.nameLast, m.nameFirst";

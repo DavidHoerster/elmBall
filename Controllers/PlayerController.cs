@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace agileBall_svr.Controllers
         private IEnumerable<PlayerDetail> GetPlayer(string id)
         {
             IEnumerable<PlayerDetail> player = null;
-            using (var conn = new MySqlConnection("Server=baseball-data.mysql.database.azure.com; Port=3306; Database=lahman2016; Uid=dhoerster@baseball-data; Pwd=P@ssw0rd;"))
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["baseballData"].ConnectionString))
             {
                 conn.Open();
                 const string sql = @"SELECT CONCAT(m.nameFirst,' ',m.nameLast) as name, m.bbrefID, m.playerID, b.yearID, b.H as Hits, b.HR as HomeRuns, b.RBI as RunsBattedIn
