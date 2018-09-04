@@ -17,7 +17,9 @@ namespace agileBall_svr
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+
+            var connstr = Configuration.GetConnectionString("baseballData");
         }
 
         public IConfiguration Configuration { get; }

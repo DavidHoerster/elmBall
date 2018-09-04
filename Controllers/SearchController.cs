@@ -8,6 +8,7 @@ using Dapper;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace agileBall_svr.Controllers
 {
@@ -15,6 +16,13 @@ namespace agileBall_svr.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
+        private IConfiguration _config;
+        public SearchController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+
         // GET api/values
         [HttpGet("{query}")]
         public ActionResult<IEnumerable<Player>> Get(string query)
@@ -28,7 +36,7 @@ namespace agileBall_svr.Controllers
         private IEnumerable<Player> FindPlayers(string query)
         {
             IEnumerable<Player> players = null;
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["baseballData"].ConnectionString))
+            using (var conn = new MySqlConnection(_config.GetConnectionString("baseballData")))
             {
                 conn.Open();
                 const string sql = @"SELECT CONCAT_WS(' ',m.nameFirst, m.nameLast) as name, m.playerID FROM lahman2016.master m WHERE m.nameFirst LIKE @name OR m.nameLast LIKE @name ORDER BY m.nameLast, m.nameFirst";

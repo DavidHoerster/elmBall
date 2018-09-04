@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace agileBall_svr.Controllers
 {
@@ -15,6 +16,14 @@ namespace agileBall_svr.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
+        private IConfiguration _config;
+        public PlayerController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+
+
         // GET api/values
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<PlayerDetail>> Get(string id)
@@ -28,7 +37,7 @@ namespace agileBall_svr.Controllers
         private IEnumerable<PlayerDetail> GetPlayer(string id)
         {
             IEnumerable<PlayerDetail> player = null;
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["baseballData"].ConnectionString))
+            using (var conn = new MySqlConnection(_config.GetConnectionString("baseballData")))
             {
                 conn.Open();
                 const string sql = @"SELECT CONCAT(m.nameFirst,' ',m.nameLast) as name, m.bbrefID, m.playerID, b.yearID, b.H as Hits, b.HR as HomeRuns, b.RBI as RunsBattedIn
@@ -46,10 +55,10 @@ namespace agileBall_svr.Controllers
     {
         public string Name { get; set; }
         public string PlayerId { get; set; }
-        public string bbrefId {get;set;}
-        public int YearId {get;set;}
-        public int Hits {get;set;}
-        public int HomeRuns {get;set;}
-        public int RunsBattedIn {get;set;}
+        public string bbrefId { get; set; }
+        public int YearId { get; set; }
+        public int Hits { get; set; }
+        public int HomeRuns { get; set; }
+        public int RunsBattedIn { get; set; }
     }
 }
