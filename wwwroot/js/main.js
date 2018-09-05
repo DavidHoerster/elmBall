@@ -6498,6 +6498,87 @@ var author$project$Main$viewDash = A2(
 			A2(author$project$Main$viewLink, '/player/search', 'Do a Search'),
 			A2(author$project$Main$viewLink, '/game/world-series', 'Get Info on the World Series')
 		]));
+var elm$html$Html$div = _VirtualDom_node('div');
+var elm$html$Html$nav = _VirtualDom_node('nav');
+var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var author$project$Main$viewHeader = A2(
+	elm$html$Html$nav,
+	_List_fromArray(
+		[
+			elm$html$Html$Attributes$class('navbar is-primary')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class('navbar-menu')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('navbar-start')
+						]),
+					_List_Nil),
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('navbar-end')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$a,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('navbar-item'),
+									elm$html$Html$Attributes$href('/dashboard')
+								]),
+							_List_fromArray(
+								[
+									elm$html$Html$text('Home')
+								])),
+							A2(
+							elm$html$Html$a,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('navbar-item'),
+									elm$html$Html$Attributes$href('/player/search')
+								]),
+							_List_fromArray(
+								[
+									elm$html$Html$text('Player Search')
+								])),
+							A2(
+							elm$html$Html$a,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('navbar-item'),
+									elm$html$Html$Attributes$href('/game/world-series')
+								]),
+							_List_fromArray(
+								[
+									elm$html$Html$text('World Series Game Info')
+								])),
+							A2(
+							elm$html$Html$a,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('navbar-item'),
+									elm$html$Html$Attributes$href('/help')
+								]),
+							_List_fromArray(
+								[
+									elm$html$Html$text('Help')
+								]))
+						]))
+				]))
+		]));
 var elm$html$Html$td = _VirtualDom_node('td');
 var elm$html$Html$tr = _VirtualDom_node('tr');
 var author$project$Main$viewDetail = function (detail) {
@@ -6558,7 +6639,6 @@ var elm$html$Html$table = _VirtualDom_node('table');
 var elm$html$Html$tbody = _VirtualDom_node('tbody');
 var elm$html$Html$th = _VirtualDom_node('th');
 var elm$html$Html$thead = _VirtualDom_node('thead');
-var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
 var author$project$Main$viewDetails = function (details) {
 	return A2(
 		elm$html$Html$table,
@@ -6622,7 +6702,6 @@ var author$project$Main$viewDetails = function (details) {
 				A2(elm$core$List$map, author$project$Main$viewDetail, details))
 			]));
 };
-var elm$html$Html$div = _VirtualDom_node('div');
 var elm$html$Html$h2 = _VirtualDom_node('h2');
 var author$project$Main$viewPlayerDetails = F2(
 	function (id, details) {
@@ -6783,6 +6862,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						elm$html$Html$text('Sorry, can\'t find that page')
 					]),
 				title: 'Baseball Stuff'
@@ -6792,6 +6872,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						author$project$Main$viewSearch(q)
 					]),
 				title: 'Baseball Stuff'
@@ -6801,6 +6882,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						author$project$Main$viewResults(players)
 					]),
 				title: 'Baseball Stuff'
@@ -6811,6 +6893,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						A2(author$project$Main$viewPlayerDetails, id, details)
 					]),
 				title: 'Baseball Stuff'
@@ -6820,6 +6903,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						elm$html$Html$text('Let\'s search for game ' + id)
 					]),
 				title: 'Baseball Stuff'
@@ -6828,6 +6912,7 @@ var author$project$Main$view = function (model) {
 			return {
 				body: _List_fromArray(
 					[
+						author$project$Main$viewHeader,
 						elm$html$Html$text('How can I help you?')
 					]),
 				title: 'Baseball Stuff'
@@ -6835,7 +6920,7 @@ var author$project$Main$view = function (model) {
 		default:
 			return {
 				body: _List_fromArray(
-					[author$project$Main$viewDash]),
+					[author$project$Main$viewHeader, author$project$Main$viewDash]),
 				title: 'Baseball Stuff'
 			};
 	}

@@ -206,43 +206,57 @@ view model =
         NotFound ->
             { title = "Baseball Stuff"
             , body =
-                [ text "Sorry, can't find that page" ]
+                [ viewHeader
+                , text "Sorry, can't find that page"
+                ]
             }
 
         PlayerSearch q ->
             { title = "Baseball Stuff"
             , body =
-                [ viewSearch q ]
+                [ viewHeader
+                , viewSearch q
+                ]
             }
 
         PlayerSearchResults players ->
             { title = "Baseball Stuff"
             , body =
-                [ viewResults players ]
+                [ viewHeader
+                , viewResults players
+                ]
             }
 
         PlayerDetails id details ->
             { title = "Baseball Stuff"
             , body =
-                [ viewPlayerDetails id details ]
+                [ viewHeader
+                , viewPlayerDetails id details
+                ]
             }
 
         GameSearch id ->
             { title = "Baseball Stuff"
             , body =
-                [ text ("Let's search for game " ++ id) ]
+                [ viewHeader
+                , text ("Let's search for game " ++ id)
+                ]
             }
 
         Help ->
             { title = "Baseball Stuff"
             , body =
-                [ text "How can I help you?" ]
+                [ viewHeader
+                , text "How can I help you?"
+                ]
             }
 
         Dashboard ->
             { title = "Baseball Stuff"
             , body =
-                [ viewDash ]
+                [ viewHeader
+                , viewDash
+                ]
             }
 
 
@@ -334,3 +348,19 @@ viewDash =
 viewLink : String -> String -> Html msg
 viewLink path display =
     li [] [ a [ href path ] [ text display ] ]
+
+
+viewHeader : Html Msg
+viewHeader =
+    nav [ class "navbar is-primary" ]
+        [ div [ class "navbar-menu" ]
+            [ div [ class "navbar-start" ]
+                []
+            , div [ class "navbar-end" ]
+                [ a [ class "navbar-item", href "/dashboard" ] [ text "Home" ]
+                , a [ class "navbar-item", href "/player/search" ] [ text "Player Search" ]
+                , a [ class "navbar-item", href "/game/world-series" ] [ text "World Series Game Info" ]
+                , a [ class "navbar-item", href "/help" ] [ text "Help" ]
+                ]
+            ]
+        ]
