@@ -45,8 +45,6 @@ type alias Model =
     { key : Nav.Key
     , url : Url.Url
     , page : Page
-
-    --, searchString : String
     }
 
 
@@ -158,9 +156,7 @@ playerDetailDecoder =
 
 
 
--- playersDecoder : String -> Result Json.Decode.Error (List Player)
--- playersDecoder playerjson =
---     decodeString (list playerDecoder) playerjson
+-- PARSER
 
 
 parseUrl : Url.Url -> Model -> ( Model, Cmd Msg )
@@ -250,6 +246,10 @@ view model =
             }
 
 
+
+-- VIEW PLAYER DETAILS
+
+
 viewPlayerDetails : String -> List PlayerDetail -> Html Msg
 viewPlayerDetails id details =
     div []
@@ -285,6 +285,10 @@ viewDetail detail =
         ]
 
 
+
+-- VIEW SEARCH RESULTS
+
+
 viewResults : List Player -> Html Msg
 viewResults players =
     div [ class "content" ]
@@ -312,6 +316,10 @@ viewSearch searchString =
         ]
 
 
+
+-- VIEW DASHBOARD
+
+
 viewDash : Html Msg
 viewDash =
     ul []
@@ -319,8 +327,6 @@ viewDash =
         , viewLink "/dashboard" "Go Home"
         , viewLink "/player/dave" "Get Info on Dave"
         , viewLink "/player/search" "Do a Search"
-
-        -- , viewLink "/player/search/barr" "Get results for players whose first/last have Barr"
         , viewLink "/game/world-series" "Get Info on the World Series"
         ]
 
